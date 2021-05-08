@@ -96,5 +96,7 @@ function appendExtra(ctx: tls.SecureContext) {
   ctx.context.addCACert(NODE_EXTRA_CA_CERTS)
 }
 
-// @ts-ignore
-tls.createSecureContext = modifiedCreateSecureContext
+export function monkeyPatch(): void {
+  // @ts-ignore
+  tls.createSecureContext = modifiedCreateSecureContext
+}
