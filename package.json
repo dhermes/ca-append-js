@@ -1,0 +1,11 @@
+{
+  "name": "ca-append",
+  "version": "0.0.1",
+  "description": "Append CAs to root trust store",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 1"
+  },
+  "author": "Danny Hermes",
+  "license": "MIT"
+}
