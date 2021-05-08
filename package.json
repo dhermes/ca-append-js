@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "prepack": "npm ci && npm run build",
+    "prettier": "prettier --write index.ts",
     "test": "exit 1"
   },
   "repository": {
@@ -28,6 +29,7 @@
     "node": ">=14"
   },
   "devDependencies": {
+    "prettier": "2.2.1",
     "typescript": "4.2.4"
   }
 }
