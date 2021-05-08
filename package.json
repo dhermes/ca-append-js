@@ -6,6 +6,22 @@
   "scripts": {
     "test": "exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhermes/ca-append-js.git"
+  },
+  "keywords": [
+    "tls",
+    "socket",
+    "monkeypatch"
+  ],
   "author": "Danny Hermes",
-  "license": "MIT"
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/dhermes/ca-append-js/issues"
+  },
+  "homepage": "https://github.comdhermes/ca-append-js#readme",
+  "engines": {
+    "node": ">=14"
+  }
 }
