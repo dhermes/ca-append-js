@@ -61,7 +61,24 @@ function modifiedCreateSecureContext(details: SecureContextOptions): tls.SecureC
   }
 
   const ctx = wrappedTLSCreateSecureContext(detailsWithout)
+  const toAppend = toArray(details.caAppend)
+  for (const certificate of toAppend) {
+    ctx.context.addCACert(certificate)
+  }
+
   return ctx
+}
+
+function toArray(value: undefined | string | Buffer | Array<string | Buffer>): Array<string | Buffer> {
+  if (value === undefined) {
+    return []
+  }
+
+  if (Array.isArray(value)) {
+    return value
+  }
+
+  return [value]
 }
 
 // @ts-ignore
