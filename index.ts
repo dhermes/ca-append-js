@@ -12,4 +12,16 @@
  * limitations under the License.
  */
 
-export const version = '0.0.2-dev'
+import * as tls from 'tls'
+
+export const wrappedTLSCreateSecureContext = tls.createSecureContext
+
+export interface SecureContextOptions extends tls.SecureContextOptions {}
+
+function modifiedCreateSecureContext(details: SecureContextOptions): tls.SecureContext {
+  const ctx = wrappedTLSCreateSecureContext(details)
+  return ctx
+}
+
+// @ts-ignore
+tls.createSecureContext = modifiedCreateSecureContext
