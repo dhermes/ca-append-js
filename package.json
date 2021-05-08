@@ -5,14 +5,41 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && rm -fr lib/test/fixtures/ && cp -r test/fixtures/ lib/test/fixtures/",
     "prepack": "npm ci && npm run build",
-    "prettier": "prettier --write env.ts index.ts",
-    "test": "exit 1"
+    "prettier": "prettier --write env.ts index.ts 'test/**.ts'",
+    "testCode": "nyc ./_bin/test.sh",
+    "test": "npm run build && npm run testCode"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dhermes/ca-append-js.git"
+  },
+  "ava": {
+    "files": [
+      "lib/test/**/*.test.js"
+    ],
+    "concurrency": 5,
+    "verbose": true,
+    "timeout": "10000",
+    "failFast": false,
+    "powerAssert": true
+  },
+  "nyc": {
+    "reporter": [
+      "html",
+      "json",
+      "text"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "skip-full": false,
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100,
+    "statements": 100
   },
   "keywords": [
     "tls",
@@ -30,6 +57,9 @@
   },
   "devDependencies": {
     "@types/node": "15.0.2",
+    "ava": "3.15.0",
+    "axios": "0.21.1",
+    "nyc": "15.1.0",
     "prettier": "2.2.1",
     "typescript": "4.2.4"
   }

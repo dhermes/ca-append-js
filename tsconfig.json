@@ -20,9 +20,9 @@
         "sourceMap": true
     },
     "include": [
+        "env.ts",
         "index.ts",
-        "logger.ts",
-        "types.ts"
+        "test/"
     ],
     "exclude": [
         "node_modules"
