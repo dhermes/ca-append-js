@@ -4,6 +4,36 @@
 
 > Monkey-patching Node.js `tls` Module from Standard Library to **append** CAs
 
+## Documentation
+
+This package has import time side-effects: it changes the connection options
+allowed in Node.js TLS / HTTPS clients (e.g. `axios`, `request`,
+`request-promise-native`).  There are four connection options impacted:
+
+-   `ca`: This option from the Node.js standard library has been
+    **deprecated**, using it will cause an error.
+-   `caAppend`: This option is added by `ca-append`. It appends CA
+    certificates to the root trust store.
+-   `caReplace`: This option is added by `ca-append`. It replaces the
+    the root trust store; it has the same behavior as `ca` but has a name that
+    makes this behavior clear.
+-   `appendNodeExtraCACerts`: This option is added by `ca-append`. This
+    is unlikely to be needed unless an application has a hard requirement that
+    both `NODE_EXTRA_CA_CERTS` and `caAppend` must be supported. If set to
+    `true`, this indicates that the `NODE_EXTRA_CA_CERTS` should be explicitly
+    loaded into a secure context. (This is a workaround to a [bug][1] in
+    Node.js.)
+
+The package is only expected to be used for side-effects via `monkeyPatch()`,
+though it does export two other members:
+
+-   `monkeyPatch()`: A function that will replace `tls.createSecureContext()`
+    with a custom replacement.
+-   `wrappedTLSCreateSecureContext()`: The original `tls.createSecureContext()`
+    function that has been replaced / monkey-patched.
+-   `SecureContextOptions`: The TypeScript interface describing the expanding
+    options (i.e. it's `tls.SecureContextOptions` plus the three added above).
+
 ## Benchmark
 
 By monkey-patching `tls.createSecureContext`, we are sacrificing native
@@ -48,3 +78,5 @@ To (re-)generate TLS certificates in `tests/fixtures/`
 ./_bin/generate-tls-certs.sh test/fixtures/ca1
 ./_bin/generate-tls-certs.sh test/fixtures/ca2
 ```
+
+[1]: https://github.com/nodejs/node/issues/32010
