@@ -47,6 +47,10 @@ export interface SecureContextOptions extends tls.SecureContextOptions {
 }
 
 function modifiedCreateSecureContext(details: SecureContextOptions): tls.SecureContext {
+  if (details.ca !== undefined) {
+    throw new Error('tls.createSecureContext(): `ca` option has been deprecated')
+  }
+
   const ctx = wrappedTLSCreateSecureContext(details)
   return ctx
 }
