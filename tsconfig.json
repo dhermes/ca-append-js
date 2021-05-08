@@ -20,6 +20,7 @@
         "sourceMap": true
     },
     "include": [
+        "benchmark/",
         "env.ts",
         "index.ts",
         "test/"
