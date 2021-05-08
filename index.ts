@@ -51,7 +51,16 @@ function modifiedCreateSecureContext(details: SecureContextOptions): tls.SecureC
     throw new Error('tls.createSecureContext(): `ca` option has been deprecated')
   }
 
-  const ctx = wrappedTLSCreateSecureContext(details)
+  const detailsWithout = Object.assign({}, details)
+  delete detailsWithout.ca
+  delete detailsWithout.caAppend
+  delete detailsWithout.caReplace
+  delete detailsWithout.appendNodeExtraCACerts
+  if (details.caReplace !== undefined) {
+    detailsWithout.ca = details.caReplace
+  }
+
+  const ctx = wrappedTLSCreateSecureContext(detailsWithout)
   return ctx
 }
 
