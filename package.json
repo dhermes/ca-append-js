@@ -1,6 +1,6 @@
 {
   "name": "ca-append",
-  "version": "0.1.0",
+  "version": "0.1.1-dev",
   "description": "Append CAs to root trust store",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
