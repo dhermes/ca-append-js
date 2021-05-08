@@ -12,13 +12,13 @@ test.before(() => {
   shared.runServers()
 })
 
-test('Throw exception if `ca` is used when creating an agent', async (t) => {
+test('Throw exception if `ca` is used when creating an agent', async t => {
   const options = shared.makeOptions({ ca: 'not-pem' })
   const expectations = { instanceOf: Error, message: 'tls.createSecureContext(): `ca` option has been deprecated' }
   await t.throwsAsync(axios.default.get(shared.GOOGLE, options), expectations)
 })
 
-test('No CA options, public internet works and TLS-localhost does not', async (t) => {
+test('No CA options, public internet works and TLS-localhost does not', async t => {
   const options = shared.makeOptions({})
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -31,7 +31,7 @@ test('No CA options, public internet works and TLS-localhost does not', async (t
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('Using `caAppend` (for CA1)', async (t) => {
+test('Using `caAppend` (for CA1)', async t => {
   const options = shared.makeOptions({ caAppend: [shared.ROOT_CA1] })
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -44,7 +44,7 @@ test('Using `caAppend` (for CA1)', async (t) => {
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('Using `caAppend` (for CA1); non-array input', async (t) => {
+test('Using `caAppend` (for CA1); non-array input', async t => {
   const options = shared.makeOptions({ caAppend: shared.ROOT_CA1 })
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -57,7 +57,7 @@ test('Using `caAppend` (for CA1); non-array input', async (t) => {
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('Using `caAppend` (for CA1); appendNodeExtraCACerts is a no-op', async (t) => {
+test('Using `caAppend` (for CA1); appendNodeExtraCACerts is a no-op', async t => {
   // NOTE: This assumes that `NODE_EXTRA_CA_CERTS` is not set.
   const options = shared.makeOptions({ caAppend: [shared.ROOT_CA1], appendNodeExtraCACerts: true })
   // 1. can hit Google
@@ -71,7 +71,7 @@ test('Using `caAppend` (for CA1); appendNodeExtraCACerts is a no-op', async (t) 
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('Using `caAppend` (for CA1, CA2)', async (t) => {
+test('Using `caAppend` (for CA1, CA2)', async t => {
   const options = shared.makeOptions({ caAppend: [shared.ROOT_CA1, shared.ROOT_CA2] })
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -84,7 +84,7 @@ test('Using `caAppend` (for CA1, CA2)', async (t) => {
   t.is(200, response3.status)
 })
 
-test('Using `caReplace` (for CA1)', async (t) => {
+test('Using `caReplace` (for CA1)', async t => {
   const options = shared.makeOptions({ caReplace: [shared.ROOT_CA1] })
   // 1. cannot hit Google
   const err1 = await t.throwsAsync(axios.default.get(shared.GOOGLE, options))
@@ -97,7 +97,7 @@ test('Using `caReplace` (for CA1)', async (t) => {
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('Using `caReplace` (for CA1); non-array input', async (t) => {
+test('Using `caReplace` (for CA1); non-array input', async t => {
   const options = shared.makeOptions({ caReplace: shared.ROOT_CA1 })
   // 1. cannot hit Google
   const err1 = await t.throwsAsync(axios.default.get(shared.GOOGLE, options))
@@ -110,7 +110,7 @@ test('Using `caReplace` (for CA1); non-array input', async (t) => {
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('Using `caReplace` (for CA1, CA2)', async (t) => {
+test('Using `caReplace` (for CA1, CA2)', async t => {
   const options = shared.makeOptions({ caReplace: [shared.ROOT_CA1, shared.ROOT_CA2] })
   // 1. cannot hit Google
   const err1 = await t.throwsAsync(axios.default.get(shared.GOOGLE, options))
@@ -123,7 +123,7 @@ test('Using `caReplace` (for CA1, CA2)', async (t) => {
   t.is(200, response3.status)
 })
 
-test('Using `caReplace` (for CA1), `caAppend` (for CA2)', async (t) => {
+test('Using `caReplace` (for CA1), `caAppend` (for CA2)', async t => {
   const options = shared.makeOptions({ caReplace: [shared.ROOT_CA1], caAppend: [shared.ROOT_CA2] })
   // 1. cannot hit Google
   const err1 = await t.throwsAsync(axios.default.get(shared.GOOGLE, options))

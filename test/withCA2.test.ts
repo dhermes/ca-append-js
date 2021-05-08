@@ -14,7 +14,7 @@ test.before(() => {
   shared.runServers()
 })
 
-test('No CA options, NODE_EXTRA_CA_CERTS for CA2', async (t) => {
+test('No CA options, NODE_EXTRA_CA_CERTS for CA2', async t => {
   const options = shared.makeOptions({})
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -27,7 +27,7 @@ test('No CA options, NODE_EXTRA_CA_CERTS for CA2', async (t) => {
   t.is(200, response3.status)
 })
 
-test('Using `caAppend` (for CA1), NODE_EXTRA_CA_CERTS for CA2 ignored due to bug', async (t) => {
+test('Using `caAppend` (for CA1), NODE_EXTRA_CA_CERTS for CA2 ignored due to bug', async t => {
   const options = shared.makeOptions({ caAppend: [shared.ROOT_CA1] })
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -43,7 +43,7 @@ test('Using `caAppend` (for CA1), NODE_EXTRA_CA_CERTS for CA2 ignored due to bug
   shared.requestError(t, err3, 'SELF_SIGNED_CERT_IN_CHAIN', 'self signed certificate in certificate chain')
 })
 
-test('Using `caAppend` (for CA1), NODE_EXTRA_CA_CERTS for CA2 opt-in via appendNodeExtraCACerts', async (t) => {
+test('Using `caAppend` (for CA1), NODE_EXTRA_CA_CERTS for CA2 opt-in via appendNodeExtraCACerts', async t => {
   const options = shared.makeOptions({ caAppend: [shared.ROOT_CA1], appendNodeExtraCACerts: true })
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -56,7 +56,7 @@ test('Using `caAppend` (for CA1), NODE_EXTRA_CA_CERTS for CA2 opt-in via appendN
   t.is(200, response3.status)
 })
 
-test('Using `caReplace` (for CA1), NODE_EXTRA_CA_CERTS is ignored', async (t) => {
+test('Using `caReplace` (for CA1), NODE_EXTRA_CA_CERTS is ignored', async t => {
   const options = shared.makeOptions({ caReplace: [shared.ROOT_CA1] })
   // 1. cannot hit Google
   const err1 = await t.throwsAsync(axios.default.get(shared.GOOGLE, options))

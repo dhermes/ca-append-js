@@ -22,7 +22,7 @@ function main() {
     .add('replace-with-one-CA', replaceWithOneCA)
     .add('replace-multiple-CAs', replaceMultipleCAs)
     .on('cycle', function cycle(event: Benchmark.Event) {
-      console.log(String(event.target))
+      console.info(String(event.target))
     })
     .run({ async: true })
 }

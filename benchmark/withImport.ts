@@ -35,7 +35,7 @@ function main() {
     .add('append-multiple-CAs', appendMultipleCAs)
     .add('replace-and-append-CAs', replaceAndAppendCAs)
     .on('cycle', function cycle(event: Benchmark.Event) {
-      console.log(String(event.target))
+      console.info(String(event.target))
     })
     .run({ async: true })
 }

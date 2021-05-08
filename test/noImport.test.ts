@@ -9,7 +9,7 @@ test.before(() => {
   shared.runServers()
 })
 
-test('Does not throw exception if `ca` is used when creating an agent', async (t) => {
+test('Does not throw exception if `ca` is used when creating an agent', async t => {
   const options = shared.makeOptions({ ca: [shared.ROOT_CA1] })
   // 1. cannot hit Google
   const err1 = await t.throwsAsync(axios.default.get(shared.GOOGLE, options))
@@ -22,7 +22,7 @@ test('Does not throw exception if `ca` is used when creating an agent', async (t
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('No CA options, public internet works and TLS-localhost does not', async (t) => {
+test('No CA options, public internet works and TLS-localhost does not', async t => {
   const options = shared.makeOptions({})
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -35,7 +35,7 @@ test('No CA options, public internet works and TLS-localhost does not', async (t
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('Using `caAppend` is fully ignored', async (t) => {
+test('Using `caAppend` is fully ignored', async t => {
   const options = shared.makeOptions({ caAppend: [shared.ROOT_CA1] })
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
@@ -48,7 +48,7 @@ test('Using `caAppend` is fully ignored', async (t) => {
   shared.requestError(t, err3, 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'unable to verify the first certificate')
 })
 
-test('Using `caReplace` is fully ignored', async (t) => {
+test('Using `caReplace` is fully ignored', async t => {
   const options = shared.makeOptions({ caReplace: [shared.ROOT_CA1] })
   // 1. can hit Google
   const response1: axios.AxiosResponse = await axios.default.get(shared.GOOGLE, options)
