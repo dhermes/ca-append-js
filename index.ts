@@ -14,7 +14,10 @@
 
 import * as tls from 'tls'
 
+import * as env from './env'
+
 export const wrappedTLSCreateSecureContext = tls.createSecureContext
+const NODE_EXTRA_CA_CERTS: Buffer | undefined = env.nodeExtraCACerts()
 
 export interface SecureContextOptions extends tls.SecureContextOptions {
   /**
@@ -66,6 +69,10 @@ function modifiedCreateSecureContext(details: SecureContextOptions): tls.SecureC
     ctx.context.addCACert(certificate)
   }
 
+  if (toAppend.length > 0 && details.appendNodeExtraCACerts) {
+    appendExtra(ctx)
+  }
+
   return ctx
 }
 
@@ -79,6 +86,14 @@ function toArray(value: undefined | string | Buffer | Array<string | Buffer>): A
   }
 
   return [value]
+}
+
+function appendExtra(ctx: tls.SecureContext) {
+  if (NODE_EXTRA_CA_CERTS === undefined) {
+    return
+  }
+
+  ctx.context.addCACert(NODE_EXTRA_CA_CERTS)
 }
 
 // @ts-ignore
