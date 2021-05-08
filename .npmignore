@@ -2,7 +2,9 @@
 *
 
 # Allowlist of files (sorted alphabetically, case-insensitive)
-!index.js
+!lib/index.d.ts
+!lib/index.js
+!lib/index.js.map
 !LICENSE
 !package.json
 !README.md

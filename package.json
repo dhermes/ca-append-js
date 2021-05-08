@@ -2,8 +2,11 @@
   "name": "ca-append",
   "version": "0.0.2-dev",
   "description": "Append CAs to root trust store",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "prepack": "npm ci && npm run build",
     "test": "exit 1"
   },
   "repository": {
@@ -23,5 +26,8 @@
   "homepage": "https://github.comdhermes/ca-append-js#readme",
   "engines": {
     "node": ">=14"
+  },
+  "devDependencies": {
+    "typescript": "4.2.4"
   }
 }

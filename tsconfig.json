@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "outDir": "./lib",
+        "rootDir": "./",
+        "strict": true,
+        "noImplicitAny": true,
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmitOnError": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "preserveConstEnums": true,
+        "pretty": true,
+        "removeComments": false,
+        "incremental": true,
+        "sourceMap": true
+    },
+    "include": [
+        "index.ts",
+        "logger.ts",
+        "types.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
