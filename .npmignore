@@ -1,0 +1,8 @@
+# Ignore everything
+*
+
+# Allowlist of files (sorted alphabetically, case-insensitive)
+!index.js
+!LICENSE
+!package.json
+!README.md
