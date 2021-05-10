@@ -59,7 +59,7 @@
   "bugs": {
     "url": "https://github.com/dhermes/ca-append-js/issues"
   },
-  "homepage": "https://github.comdhermes/ca-append-js#readme",
+  "homepage": "https://github.com/dhermes/ca-append-js#readme",
   "engines": {
     "node": ">=14"
   },
