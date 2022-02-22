@@ -6,9 +6,16 @@
 
 ## Documentation
 
-This package has import time side-effects: it changes the connection options
-allowed in Node.js TLS / HTTPS clients (e.g. `axios`, `request`,
-`request-promise-native`).  There are four connection options impacted:
+To use this package:
+
+```ts
+import * as caAppend from 'ca-append'
+caAppend.monkeyPatch()
+```
+
+This package changes the connection options allowed in Node.js 
+TLS / HTTPS clients (e.g. `axios`, `request`, `request-promise-native`).
+There are four connection options impacted:
 
 -   `ca`: This option from the Node.js standard library has been
     **deprecated**, using it will cause an error.
